@@ -3,25 +3,25 @@ console.log('running');
 let pro=[
     {
         name:'Apple Airpods',
-        tag:"Apple",
+        tag:'P1',
         price: 35,
         inCart:0
     },
     {
         name:'Basus Airdots',
-        tag:"Basus",
+        tag:'P2',
         price: 22,
         inCart:0
     },
     {
         name:'Mi Airdots',
-        tag:"Mi",
+        tag:'P3',
         price: 15,
         inCart:0
     },
     {
         name:'Samsung Buds',
-        tag:"Samsung",
+        tag:'P4',
         price: 30,
         inCart:0
     }
@@ -98,19 +98,44 @@ function totalcost(pro){
 function Displaycart(){
  let cartItem=localStorage.getItem("ProductsInCart");
  cartItem=JSON.parse(cartItem);
- let procont=document.querySelector(".products-container");
+ let procont=document.querySelector(".products");
+ let cartcost=localStorage.getItem("TotalCost");
  if(cartItem && procont){
-    procont.innerHTML="";
+    procont.innerHTML='';
     Object.values(cartItem).map(item =>{
-
         procont.innerHTML += `
-        <div class="products">
-            <img src="./$(item.tag).jpg" >
-            <span>$(item.name)</span>
-        </div>        
+        <div class="product">
+            <img src="./${item.tag}.jpg" >
+            <span>${item.name}</span>
+        </div>   
+        <div class="price">
+        $${item.price},00
+    </div>
+    <div class="quantity">
+        <span>${item.inCart}</span>
+    </div>    
+
+    <div class="total">
+    <span>$${item.inCart * item.price},00</span>
+</div>     
+
         `
-    })
+    });
+    
+    procont.innerHTML += `
+    <div class="basketTC">
+<h4 class="basketT">
+    Basket Total
+</h4>
+<h4 class="BTT">
+    $${cartcost},00
+</h4>
+</div>
+
+    `
+    
  }
 }
 Displaycart();
 onloadcartnumbers();
+

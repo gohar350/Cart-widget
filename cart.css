@@ -135,6 +135,8 @@ img{
     display: flex;
     align-items: center;
 }
+
+
 .product{
         width: 45%;
         border-bottom: 1px solid lightgray;
@@ -142,4 +144,15 @@ img{
         align-items: center;
         padding: 10px 0;
     
+}
+
+.products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.products img{
+
+    width: 75px;
 }
