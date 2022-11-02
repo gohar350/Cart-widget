@@ -4,25 +4,25 @@ let pro=[
     {
         name:'Apple Airpods',
         tag:'P1',
-        price: 35,
+        price: 5,
         inCart:0
     },
     {
         name:'Basus Airdots',
         tag:'P2',
-        price: 22,
+        price: 5,
         inCart:0
     },
     {
         name:'Mi Airdots',
         tag:'P3',
-        price: 15,
+        price: 5,
         inCart:0
     },
     {
         name:'Samsung Buds',
         tag:'P4',
-        price: 30,
+        price: 5,
         inCart:0
     }
     
@@ -105,8 +105,9 @@ function Displaycart(){
     Object.values(cartItem).map(item =>{
         procont.innerHTML += `
         <div class="product">
-            <img src="./${item.tag}.jpg" >
-            <span>${item.name}</span>
+            <img src="./${item.tag}.jpg" >	&nbsp	&nbsp	&nbsp
+            <span>${item.name}</span>	&nbsp	&nbsp	&nbsp
+            <button onclick="Remove()">-</button>
         </div>   
         <div class="price">
         $${item.price},00
@@ -139,3 +140,65 @@ function Displaycart(){
 Displaycart();
 onloadcartnumbers();
 
+
+
+function totalcost1(pro){
+    let cartcost=localStorage.getItem("TotalCost");
+
+    if(cartcost>0){
+        cartcost=parseInt(cartcost);
+        localStorage.setItem("TotalCost", cartcost -pro.price);
+
+    }
+    else{
+    localStorage.setItem("TotalCost" , 0);
+    }
+}
+
+function cartnumber1(pro){
+    console.log("Product =",pro)
+    let pnumber =localStorage.getItem('cartnumber');
+    pnumber=parseInt(pnumber);
+    if (pnumber>0){
+        localStorage.setItem('cartnumber',pnumber-1);
+        document.querySelector('.cart span').textContent =pnumber-1;
+    }
+    else{
+    localStorage.setItem('cartnumber',0);
+    document.querySelector('.cart span').textContent =0;
+    }
+ setItem1(pro);
+}
+
+function setItem1(pro){
+    console.log("setItem is Running");
+    let cartItem = localStorage.getItem("ProductsInCart"); 
+    cartItem= JSON.parse(cartItem); //For making Json Object
+    if(cartItem !=null){
+        if(cartItem[pro.tag] == undefined){
+            cartItem={
+                ...cartItem,
+                    [pro.tag]: pro
+                
+            }
+        }
+        if(cartItem[pro.tag].inCart>0){
+        cartItem[pro.tag].inCart -= 1;
+        }
+    }
+    else{
+    pro.inCart =0;
+    cartItem={
+        [pro.tag]: pro
+    }
+    }
+
+    localStorage.setItem("ProductsInCart", JSON.stringify (cartItem));
+
+}
+function Remove(){
+    console.log("We Here");
+    cartnumber1(pro[1]);
+    totalcost1(pro[1]);
+    Displaycart();
+}

@@ -156,3 +156,11 @@ img{
 
     width: 75px;
 }
+
+.product button {
+    background-color:red; 
+    color: white;
+    display: inline-block;
+    border-radius: 1em;
+
+  }
